@@ -1,0 +1,153 @@
+CONDITION,DIAGNOSTIC BASKET,DIAGNOSTIC BASKET,DIAGNOSTIC BASKET,ONGOING MANAGEMENT BASKET,ONGOING MANAGEMENT BASKET,ONGOING MANAGEMENT BASKET,NUMBER OF SPECIALISTS WE COVER EACH YEAR
+,PROCEDURE OR TEST DESCRIPTION,PROCEDURE OR TEST CODE,NUMBER OF PROCEDURES OR TESTS WE COVER,PROCEDURE OR TEST DESCRIPTION,PROCEDURE OR TEST CODE,NUMBER OF PROCEDURES OR TESTS WE COVER,NUMBER OF SPECIALISTS WE COVER EACH YEAR
+Cardiac failure,U & E only,4171,1,U & E only,4171,4,0
+Cardiac failure,"ECG –
+Electrocardiogram","(1228+1230)
+or (1229+1231)
+or 1232 or
+1233 or
+1234 or
+1235 or
+1236",1,"ECG –
+Electrocardiogram","(1228+1230)
+or 1232",3,0
+Cardiac failure,Echocardiography,"3620 &
+3621 &
+3622 &
+3623 &
+3624 &
+3625",1,Echocardiography,"3620 &
+3621 &
+3622 &
+3623 &
+3624 &
+3625",2,0
+Cardiac failure,B-Type natriuretic peptide,4488,1,B-Type natriuretic peptide,4488,1,0
+Cardiac failure,Creatinine,"4032 or
+4221 or
+4223",1,Creatinine,"4032 or
+4221 or
+4223",4,0
+Cardiac failure,C-reactive protein,3947,1,Drug level in biological fluid,"4081 or
+4370 or
+4493",3,0
+Cardiac failure,Full blood count,3755,1,,,,0
+Cardiac failure,Troponin isoforms,4161,1,Threshold testing: own equipment,1268,1,0
+Cardiac failure,Total cholesterol,4027,1,,,,0
+Cardiac failure,Urine analysis (dipstick),4188,1,Urine analysis (dipstick),4188,4,0
+Cardiac failure,"Glucose –
+random/fasting","4050 or
+4057",1,Programming of the Atrioventricular sequential pacemaker,"1270 or
+75075",1,0
+Cardiac failure,"X-ray of the chest two views, PA and lateral",30110,1,"X-ray of the chest two views, PA and lateral",30110,1,0
+Cardiac failure,Thyrotropin (TSH),4507,1,,,,0
+Cardiomyopathy,"ECG –
+Electrocardiogram","1232 or
+1233 or
+1234 or
+1235 or
+1236",1,"ECG –
+Electrocardiogram","1232 or
+1233 or
+1234 or
+1235 or
+1236",4,2
+Cardiomyopathy,Echocardiography,"3621 &
+3622 &
+3623 &
+3620 &
+3625",1,Echocardiography,"3621 &
+3622 &
+3623 &
+3620 &
+3625",2,2
+Cardiomyopathy,B-Type natriuretic peptide,4488,1,B-Type natriuretic peptide,4488,1,2
+Cardiomyopathy,Creatinine,"4032 or
+4221 or
+4223",1,Creatinine,"4032 or
+4221 or
+4223",4,2
+Cardiomyopathy,U & E only,4171,1,U & E only,4171,4,2
+Cardiomyopathy,Urine analysis (dipstick),4188,1,Urine analysis (dipstick),4188,4,2
+Cardiomyopathy,"Glucose –
+random/fasting",4057,1,Prothrombin index (PI),3805,24,2
+Cardiomyopathy,C-reactive protein,3947,1,Therapeutic drug level: Dosage,3806,24,2
+Cardiomyopathy,Full blood count,3755,1,Drug level in biological fluid,"4081 or
+4370 or
+4493",3,2
+Cardiomyopathy,Thyrotropin (TSH),4507,1,Threshold testing: own equipment,1268,1,2
+Cardiomyopathy,"X-ray of the chest two views, PA and lateral",30110,1,"X-ray of the chest two views, PA and lateral",30110,1,2
+Cardiomyopathy,Total cholesterol,4027,1,Programming of the Atrioventricular sequential pacemaker,"1270 or
+75075",1,2
+Dysrhythmia,"ECG –
+Electrocardiogram","1232 or
+1233 or
+1234 or
+1235 or
+1236",1,"ECG –
+Electrocardiogram",1232,3,2
+Dysrhythmia,,,,,"1233 or
+1234 or
+1235 or
+1236",1,2
+Dysrhythmia,Echocardiography,"3621 &
+3622 &
+3623 &
+3620 &
+3625",1,Echocardiography,"3621 &
+3622 &
+3623 &
+3620 &
+3625",1,2
+Dysrhythmia,Creatinine,"4032 or
+4221 or
+4223",1,Creatinine,"4032 or
+4221 or
+4223",1,2
+Dysrhythmia,U & E only,4171,1,U & E only,4171,2,2
+Dysrhythmia,Magnesium: Spectro- photometric,4094,1,Magnesium: Spectro- photometric,4094,1,2
+Dysrhythmia,C-reactive protein,3947,1,Prothrombin index (PI),3805,24,2
+Dysrhythmia,Thyrotropin (TSH),4507,1,Therapeutic drug level: Dosage,3806,24,2
+Dysrhythmia,Serum calcium,"4016 or
+4017 or
+4375 or
+4376",1,Drug level in biological fluid,"4081 or
+4370 or
+4493",2,2
+Dysrhythmia,24 Hour ambulatory ECG monitoring (holter),"1238 &
+1239",1,Threshold testing: Own equipment,1268,1,2
+Dysrhythmia,,,,Programming of atrio-ventricular sequential pacemaker,"1270 or
+75075",1,2
+Haemophilia,Full blood count,3755,1,Full blood count,3755,1,2
+Haemophilia,Platelet count,3797,1,Platelet count,3797,1,2
+Haemophilia,Factor VIII or Factor IX antigen or Coagulation factors,"3758 or
+3757",1,Factor VIII or Factor IX inhibitors,3724,1,2
+Haemophilia,Fibrinogen titre,3825,1,Factor VIII or Factor IX inhibitors,3724,1,2
+Haemophilia,Bleeding time,3713,1,Factor VIII or Factor IX inhibitors,3724,1,2
+Haemophilia,PTT - Partial thromboplastin time,3837,1,Factor VIII or Factor IX inhibitors,3724,1,2
+Haemophilia,Thrombin time,3841,1,Factor VIII or Factor IX inhibitors,3724,1,2
+Haemophilia,Therapeutic drug level: Dosage,3806,1,Factor VIII or Factor IX inhibitors,3724,1,2
+Hyperlipidaemia,Total cholesterol,4027,1,Total cholesterol,4027,1,0
+Hyperlipidaemia,LDL cholesterol,4026,1,LDL cholesterol,4026,1,0
+Hyperlipidaemia,HDL cholesterol,4028,1,HDL cholesterol,4028,1,0
+Hyperlipidaemia,Triglycerides,4147,1,Triglycerides,4147,1,0
+Hyperlipidaemia,Thyrotropin (TSH),4507,1,AST – Aspartate aminotransferase,4130,1,0
+Hyperlipidaemia,,,,ALT – Alanine aminotransferase,4131,1,0
+Hypertension,"ECG –
+Electrocardiogram","1232 or
+1233",1,"ECG –
+Electrocardiogram","1232 or
+1233",1,1
+Hypertension,"Glucose –
+random/fasting",4057,1,"Glucose –
+random/fasting",4057,1,1
+Hypertension,Total cholesterol,4027,1,Total cholesterol,4027,1,1
+Hypertension,Creatinine,"4032 or
+4221 or
+4223",1,Creatinine,"4032 or
+4221 or
+4223",1,1
+Hypertension,,,,Potassium,4113,1,1
+Hypertension,Urine analysis (dipstick),4188,1,Urine analysis (dipstick),4188,1,1
+Hypertension,U & E only,4171,1,U & E only,4171,1,1
+Hypertension,24 Hour ambulatory blood pressure,1237,1,24 Hour ambulatory blood pressure,1237,1,1

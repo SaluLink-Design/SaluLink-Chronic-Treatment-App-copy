@@ -1,0 +1,127 @@
+CONDITION,DIAGNOSTIC BASKET,DIAGNOSTIC BASKET,DIAGNOSTIC BASKET,ONGOING MANAGEMENT BASKET,ONGOING MANAGEMENT BASKET,ONGOING MANAGEMENT BASKET,ONGOING MANAGEMENT BASKET
+,PROCEDURE OR TEST DESCRIPTION,PROCEDURE OR TEST CODE,NUMBER OF PROCEDURES OR TESTS WE COVER,PROCEDURE OR TEST DESCRIPTION,PROCEDURE OR TEST CODE,NUMBER OF PROCEDURES OR TESTS WE COVER,NUMBER OF SPECIALISTS WE COVER EACH YEAR
+Diabetes insipidus,U & E only,4171,1,U & E only,4171,3,1
+Diabetes insipidus,Creatinine,"4032 or
+4221 or
+4223",1,Creatinine,"4032 or
+4221 or
+4223",3,1
+Diabetes insipidus,Osmolality: Serum or urine,4093,1,Osmolality: Serum or urine,4093,1,1
+Diabetes mellitus type 1,"ECG –
+Electrocardiogram","1232 or
+1233 or
+1236",1,"ECG –
+Electrocardiogram","1232 or
+1233 or
+1236",1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,Microalbuminuria,"4261 or
+4262",1,Microalbuminuria,"4261 or
+4262",2,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,Urine analysis (dipstick),4188,1,Urine analysis (dipstick),4188,4,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,LDL cholesterol,4026,1,LDL cholesterol,4026,1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,HDL cholesterol,4028,1,HDL cholesterol,4028,1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,Total cholesterol,4027,1,Total cholesterol,4027,1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,Triglycerides,4147,1,Triglycerides,4147,1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,U & E only,4171,1,U & E only,4171,1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,Serum creatinine,"4032 or
+4223",1,Serum creatinine,"4032 or
+4223",1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,Urine creatinine,4221,1,Urine creatinine,4221,1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,Two-hour glucose- OGTT,4049,1,HbA1c,4064,4,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,"Glucose –
+random/fasting",4057,1,Tonometry,3014,1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,"Glucose –
+random/fasting",4057,1,Basic capital equipped in own rooms by ophthalmologists,3009,1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,"Glucose –
+random/fasting",4057,1,Dietitian,"84200 or
+84201 or
+84202 or
+84203 or
+84204 or
+84205",1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,"Glucose –
+random/fasting",4057,1,Fundus examination,"3003 or
+3004 or
+3027",1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,"Glucose –
+random/fasting",4057,1,Podiatrist,"68301 or
+68302 or
+68303 or
+68304 or",1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,"Glucose –
+random/fasting",4057,1,Diabetes Educator,DFSC1,1,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 1,"Glucose –
+random/fasting",4057,1,Diabetes Educator,DEDUT or DEDU1,2,"1 (Ophthal- mologist)
+4 (Other Specialist)"
+Diabetes mellitus type 2,"ECG –
+Electrocardiogram","1232 or
+1233 or
+1236",1,"ECG –
+Electrocardiogram","1232 or
+1233 or
+1236",1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Microalbuminuria,"4261 or
+4262",1,Microalbuminuria,"4261 or
+4262",2,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,HDL cholesterol,4028,1,HDL cholesterol,4028,1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Total cholesterol,4027,1,Total cholesterol,4027,1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,LDL cholesterol,4026,1,LDL cholesterol,4026,1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Triglycerides,4147,1,Triglycerides,4147,1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Urine analysis (dipstick),4188,1,Urine analysis (dipstick),4188,4,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,U & E only,4171,1,U & E only,4171,1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Urine creatinine,4221,1,Urine creatinine,4221,1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,"Glucose –
+random/fasting",4057,1,HbA1c,4064,4,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Serum creatinine,"4032 or
+4223",1,Serum creatinine,"4032 or
+4223",1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Two-hour glucose- OGTT,4049,1,Tonometry,3014,1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Two-hour glucose- OGTT,4049,1,Basic capital equipped in own rooms by ophthalmologists,3009,1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Two-hour glucose- OGTT,4049,1,Fundus examination,"3003 or
+3004 or
+3027",1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Two-hour glucose- OGTT,4049,1,Podiatrist,"68301 or
+68302 or
+68303 or
+68304 or",1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Two-hour glucose- OGTT,4049,1,Diabetes Educator,DFSC1,1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
+Diabetes mellitus type 2,Two-hour glucose- OGTT,4049,1,Dietitian,"84200 or
+84201 or
+84202 or
+84203 or
+84204 or
+84205",1,"1 (Ophthal- mologist)
+1 (Other Specialist)"
