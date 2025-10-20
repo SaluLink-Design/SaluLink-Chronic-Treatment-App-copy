@@ -93,3 +93,12 @@ export interface PMBComplianceReport {
   complianceStatus: string;
   generatedAt: Date;
 }
+
+export interface ClaimDocument {
+  originalNote: string;
+  confirmedConditions: string[];
+  selectedIcdCodes: ICDCode[];
+  diagnosticTreatments: any[];
+  managementTreatments: any[];
+  medicineSelections: any[];
+}

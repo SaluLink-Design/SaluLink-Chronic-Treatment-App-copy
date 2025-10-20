@@ -7,20 +7,28 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, Minus, CheckCircle, AlertCircle } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { Plus, Minus, CheckCircle, AlertCircle, Upload, FileText, Image } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Treatment, ICDCode } from '@/types';
 import { authiService } from '@/lib/authi-service';
 
 interface TreatmentBasketSelectorProps {
   selectedICDCodes: ICDCode[];
-  onTreatmentsSelected: (treatments: Treatment[]) => void;
+  onTreatmentsSelected: (treatments: SelectedTreatment[]) => void;
   className?: string;
+}
+
+interface TreatmentEvidence {
+  type: 'note' | 'file';
+  content: string;
+  fileName?: string;
 }
 
 interface SelectedTreatment extends Treatment {
   selected: boolean;
   quantity: number;
+  evidence: TreatmentEvidence[];
 }
 
 export function TreatmentBasketSelector({ selectedICDCodes, onTreatmentsSelected, className }: TreatmentBasketSelectorProps) {
@@ -67,13 +75,11 @@ export function TreatmentBasketSelector({ selectedICDCodes, onTreatmentsSelected
 
   const handleTreatmentToggle = (treatment: Treatment) => {
     const existingIndex = selectedTreatments.findIndex(t => t.procedureCode === treatment.procedureCode);
-    
+
     if (existingIndex >= 0) {
-      // Remove treatment
       setSelectedTreatments(selectedTreatments.filter((_, index) => index !== existingIndex));
     } else {
-      // Add treatment
-      setSelectedTreatments([...selectedTreatments, { ...treatment, selected: true, quantity: 1 }]);
+      setSelectedTreatments([...selectedTreatments, { ...treatment, selected: true, quantity: 1, evidence: [] }]);
     }
   };
 
@@ -101,12 +107,46 @@ export function TreatmentBasketSelector({ selectedICDCodes, onTreatmentsSelected
     return selected ? selected.quantity : 0;
   };
 
+  const handleAddNote = (treatment: Treatment, note: string) => {
+    setSelectedTreatments(selectedTreatments.map(t => {
+      if (t.procedureCode === treatment.procedureCode) {
+        return { ...t, evidence: [...t.evidence, { type: 'note', content: note }] };
+      }
+      return t;
+    }));
+  };
+
+  const handleFileUpload = (treatment: Treatment, file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target?.result as string;
+      setSelectedTreatments(selectedTreatments.map(t => {
+        if (t.procedureCode === treatment.procedureCode) {
+          return { ...t, evidence: [...t.evidence, { type: 'file', content, fileName: file.name }] };
+        }
+        return t;
+      }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveEvidence = (treatment: Treatment, evidenceIndex: number) => {
+    setSelectedTreatments(selectedTreatments.map(t => {
+      if (t.procedureCode === treatment.procedureCode) {
+        return { ...t, evidence: t.evidence.filter((_, idx) => idx !== evidenceIndex) };
+      }
+      return t;
+    }));
+  };
+
   const renderTreatmentList = (treatments: Treatment[], basketType: 'diagnostic' | 'ongoing_management') => (
     <div className="space-y-3">
       {treatments.map((treatment) => {
         const isSelected = isTreatmentSelected(treatment);
         const quantity = getTreatmentQuantity(treatment);
-        
+        const selectedTreatment = selectedTreatments.find(t => t.procedureCode === treatment.procedureCode);
+        const [noteText, setNoteText] = useState('');
+
         return (
           <div
             key={`${treatment.procedureCode}-${treatment.basketType}`}
@@ -131,34 +171,113 @@ export function TreatmentBasketSelector({ selectedICDCodes, onTreatmentsSelected
                 <p className="text-sm text-gray-600 mb-3">
                   Coverage Limit: {treatment.coverageLimit} per year
                 </p>
-                
+
                 {isSelected && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-700">Quantity:</span>
-                    <div className="flex items-center gap-1">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleQuantityChange(treatment, -1)}
-                        disabled={quantity <= 0}
-                        className="h-8 w-8 p-0"
-                      >
-                        <Minus size={14} />
-                      </Button>
-                      <span className="w-8 text-center text-sm font-medium">{quantity}</span>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleQuantityChange(treatment, 1)}
-                        disabled={quantity >= treatment.coverageLimit}
-                        className="h-8 w-8 p-0"
-                      >
-                        <Plus size={14} />
-                      </Button>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-700">Quantity:</span>
+                      <div className="flex items-center gap-1">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleQuantityChange(treatment, -1)}
+                          disabled={quantity <= 0}
+                          className="h-8 w-8 p-0"
+                        >
+                          <Minus size={14} />
+                        </Button>
+                        <span className="w-8 text-center text-sm font-medium">{quantity}</span>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleQuantityChange(treatment, 1)}
+                          disabled={quantity >= treatment.coverageLimit}
+                          className="h-8 w-8 p-0"
+                        >
+                          <Plus size={14} />
+                        </Button>
+                      </div>
+                      <span className="text-xs text-gray-500">
+                        (Max: {treatment.coverageLimit})
+                      </span>
                     </div>
-                    <span className="text-xs text-gray-500">
-                      (Max: {treatment.coverageLimit})
-                    </span>
+
+                    <div className="border-t pt-3 space-y-3">
+                      <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                        <AlertCircle size={16} />
+                        Supporting Evidence Required
+                      </div>
+
+                      <div className="space-y-2">
+                        <Textarea
+                          placeholder="Add clinical notes or findings..."
+                          value={noteText}
+                          onChange={(e) => setNoteText(e.target.value)}
+                          className="min-h-20"
+                        />
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            if (noteText.trim()) {
+                              handleAddNote(treatment, noteText);
+                              setNoteText('');
+                            }
+                          }}
+                          disabled={!noteText.trim()}
+                          className="flex items-center gap-2"
+                        >
+                          <FileText size={14} />
+                          Add Note
+                        </Button>
+                      </div>
+
+                      <div>
+                        <input
+                          type="file"
+                          id={`file-${treatment.procedureCode}`}
+                          accept="image/*,.pdf"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handleFileUpload(treatment, file);
+                          }}
+                        />
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => document.getElementById(`file-${treatment.procedureCode}`)?.click()}
+                          className="flex items-center gap-2"
+                        >
+                          <Upload size={14} />
+                          Upload Evidence
+                        </Button>
+                      </div>
+
+                      {selectedTreatment && selectedTreatment.evidence.length > 0 && (
+                        <div className="space-y-2">
+                          <p className="text-xs text-gray-600 font-medium">Attached Evidence:</p>
+                          {selectedTreatment.evidence.map((evidence, idx) => (
+                            <div key={idx} className="flex items-center justify-between p-2 bg-white rounded border">
+                              <div className="flex items-center gap-2">
+                                {evidence.type === 'note' ? <FileText size={14} /> : <Image size={14} />}
+                                <span className="text-sm">
+                                  {evidence.type === 'note' ? 'Clinical Note' : evidence.fileName}
+                                </span>
+                              </div>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleRemoveEvidence(treatment, idx)}
+                                className="h-6 w-6 p-0"
+                              >
+                                ×
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>

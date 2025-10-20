@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { 
-  Trash2, 
-  Sun, 
-  User, 
-  ArrowSquareOut, 
-  SignOut,
+import {
+  Trash2,
+  Sun,
+  User,
+  ExternalLink,
+  LogOut,
   MessageSquare,
   FileText,
   Settings,
@@ -16,9 +16,10 @@ import { cn } from '@/lib/utils';
 
 interface SidebarProps {
   className?: string;
+  onMenuItemClick?: (itemId: string) => void;
 }
 
-export function Sidebar({ className }: SidebarProps) {
+export function Sidebar({ className, onMenuItemClick }: SidebarProps) {
   const [activeItem, setActiveItem] = useState('new-case');
 
   const menuItems = [
@@ -32,8 +33,8 @@ export function Sidebar({ className }: SidebarProps) {
     { id: 'clear', label: 'Clear conversations', icon: Trash2 },
     { id: 'light-mode', label: 'Light mode', icon: Sun },
     { id: 'account', label: 'My account', icon: User },
-    { id: 'updates', label: 'Updates & FAQ', icon: ArrowSquareOut },
-    { id: 'logout', label: 'Log out', icon: SignOut },
+    { id: 'updates', label: 'Updates & FAQ', icon: ExternalLink },
+    { id: 'logout', label: 'Log out', icon: LogOut },
   ];
 
   return (
@@ -48,7 +49,10 @@ export function Sidebar({ className }: SidebarProps) {
           return (
             <button
               key={item.id}
-              onClick={() => setActiveItem(item.id)}
+              onClick={() => {
+                setActiveItem(item.id);
+                onMenuItemClick?.(item.id);
+              }}
               className={cn(
                 "flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors",
                 activeItem === item.id

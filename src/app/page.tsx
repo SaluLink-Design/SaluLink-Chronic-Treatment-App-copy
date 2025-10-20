@@ -4,16 +4,25 @@ import { useState } from 'react';
 import { Sidebar } from '@/components/sidebar';
 import { PatientNotesInput, AnalysisResult } from '@/components/patient-notes-input';
 import { ICDCodeSelector } from '@/components/icd-code-selector';
+import { TreatmentBasketSelector } from '@/components/treatment-basket-selector';
+import { MedicineSelector } from '@/components/medicine-selector';
+import { ViewCases } from '@/components/view-cases';
 import { clinicalBERTService } from '@/lib/clinicalbert-service';
 import { generatePDFClaim } from '@/lib/pdf-service';
-import { ClinicalBERTResponse, ICDCode } from '@/types';
+import { caseService } from '@/lib/case-service';
+import { ClinicalBERTResponse, ICDCode, Treatment, Medicine } from '@/types';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
+  const [currentView, setCurrentView] = useState<'new-case' | 'view-cases'>('new-case');
   const [currentStep, setCurrentStep] = useState<'input' | 'analysis' | 'icd-selection' | 'treatment' | 'medicine' | 'export'>('input');
   const [patientNotes, setPatientNotes] = useState('');
   const [analysisResult, setAnalysisResult] = useState<ClinicalBERTResponse | null>(null);
   const [selectedICDCodes, setSelectedICDCodes] = useState<ICDCode[]>([]);
+  const [selectedTreatments, setSelectedTreatments] = useState<any[]>([]);
+  const [selectedMedicines, setSelectedMedicines] = useState<any[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleAnalyzeNotes = async (notes: string) => {
     setPatientNotes(notes);
@@ -35,16 +44,52 @@ export default function Home() {
     setCurrentStep('treatment');
   };
 
+  const handleTreatmentsSelected = (treatments: any[]) => {
+    setSelectedTreatments(treatments);
+    setCurrentStep('medicine');
+  };
+
+  const handleMedicinesSelected = (medicines: any[]) => {
+    setSelectedMedicines(medicines);
+    setCurrentStep('export');
+  };
+
+  const handleSaveCase = async () => {
+    setIsSaving(true);
+    try {
+      const caseId = await caseService.saveCase({
+        patientNotes,
+        detectedConditions: analysisResult?.detectedConditions || [],
+        analysisConfidence: analysisResult?.confidence || 0,
+        icdCodes: selectedICDCodes,
+        treatments: selectedTreatments,
+        medicines: selectedMedicines
+      });
+      alert('Case saved successfully!');
+    } catch (error) {
+      console.error('Error saving case:', error);
+      alert('Failed to save case. Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   const handleStartNewCase = () => {
     setCurrentStep('input');
     setPatientNotes('');
     setAnalysisResult(null);
     setSelectedICDCodes([]);
+    setSelectedTreatments([]);
+    setSelectedMedicines([]);
   };
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar />
+      <Sidebar onMenuItemClick={(itemId) => {
+        if (itemId === 'new-case' || itemId === 'view-cases') {
+          setCurrentView(itemId);
+        }
+      }} />
       
       <main className="flex-1 overflow-auto">
         <div className="container mx-auto px-6 py-8">
@@ -110,6 +155,10 @@ export default function Home() {
 
           {/* Content */}
           <div className="space-y-8">
+            {currentView === 'view-cases' ? (
+              <ViewCases />
+            ) : (
+              <>
             {currentStep === 'input' && (
               <PatientNotesInput 
                 onAnalyze={handleAnalyzeNotes}
@@ -143,69 +192,95 @@ export default function Home() {
             )}
 
             {currentStep === 'treatment' && (
-              <div className="text-center py-12">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                  Treatment Basket Selection
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  Treatment basket selection will be implemented here.
-                </p>
-                <button
-                  onClick={() => setCurrentStep('medicine')}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Proceed to Medicine Selection
-                </button>
-              </div>
+              <TreatmentBasketSelector
+                selectedICDCodes={selectedICDCodes}
+                onTreatmentsSelected={handleTreatmentsSelected}
+              />
             )}
 
             {currentStep === 'medicine' && (
-              <div className="text-center py-12">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                  Medicine Selection
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  Medicine selection will be implemented here.
-                </p>
-                <button
-                  onClick={() => setCurrentStep('export')}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Proceed to Export
-                </button>
-              </div>
+              <MedicineSelector
+                selectedICDCodes={selectedICDCodes}
+                onMedicinesSelected={handleMedicinesSelected}
+              />
             )}
 
             {currentStep === 'export' && (
-              <div className="text-center py-12">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                  Export PMB Report
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  PDF export functionality will be implemented here.
-                </p>
-                <div className="flex justify-center gap-4">
-                  <button
-                    onClick={handleStartNewCase}
-                    className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-                  >
-                    Start New Case
-                  </button>
-                  <button
-                    onClick={() => generatePDFClaim({
-                      originalNote: patientNotes,
-                      confirmedConditions: analysisResult?.detectedConditions || [],
-                      selectedIcdCodes: selectedICDCodes,
-                      diagnosticTreatments: [],
-                      managementTreatments: [],
-                      medicineSelections: []
-                    })}
-                    className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                  >
-                    Export PDF
-                  </button>
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-white rounded-lg shadow-sm p-8">
+                  <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+                    Case Summary & Export
+                  </h2>
+
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="font-medium text-gray-900 mb-2">Detected Conditions</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {analysisResult?.detectedConditions.map((condition, idx) => (
+                          <span key={idx} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                            {condition}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="font-medium text-gray-900 mb-2">Selected ICD-10 Codes</h3>
+                      <div className="space-y-2">
+                        {selectedICDCodes.map((code, idx) => (
+                          <div key={idx} className="p-3 bg-gray-50 rounded border">
+                            <span className="font-medium">{code.code}</span> - {code.description}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="font-medium text-gray-900 mb-2">Selected Treatments</h3>
+                      <p className="text-gray-600">{selectedTreatments.length} treatment(s) selected</p>
+                    </div>
+
+                    <div>
+                      <h3 className="font-medium text-gray-900 mb-2">Selected Medicines</h3>
+                      <p className="text-gray-600">{selectedMedicines.length} medicine(s) selected</p>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center gap-4 mt-8 pt-6 border-t">
+                    <Button
+                      onClick={handleSaveCase}
+                      disabled={isSaving}
+                      variant="default"
+                      size="lg"
+                    >
+                      {isSaving ? 'Saving...' : 'Save Case'}
+                    </Button>
+                    <Button
+                      onClick={() => generatePDFClaim({
+                        originalNote: patientNotes,
+                        confirmedConditions: analysisResult?.detectedConditions || [],
+                        selectedIcdCodes: selectedICDCodes,
+                        diagnosticTreatments: selectedTreatments.filter(t => t.basketType === 'diagnostic'),
+                        managementTreatments: selectedTreatments.filter(t => t.basketType === 'ongoing_management'),
+                        medicineSelections: selectedMedicines
+                      })}
+                      variant="default"
+                      size="lg"
+                    >
+                      Export PDF
+                    </Button>
+                    <Button
+                      onClick={handleStartNewCase}
+                      variant="outline"
+                      size="lg"
+                    >
+                      Start New Case
+                    </Button>
+                  </div>
                 </div>
               </div>
+            )}
+            </>
             )}
           </div>
         </div>
